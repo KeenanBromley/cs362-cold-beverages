@@ -22,5 +22,4 @@ class Vessel
   def empty?
     @empty
   end
-
 end
