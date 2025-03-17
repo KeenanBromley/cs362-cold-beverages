@@ -98,4 +98,30 @@ describe 'A refrigerator' do
     expect(freezer.temperature).to eq(20)
   end
 
+  it 'can be pluged in' do
+    vessel = Vessel.new('FakeVessel', 15)
+    reservoir = WaterReservoir.new
+    dispenser = WaterDispenser.new(vessel)
+    freezer = Freezer.new
+    chiller = Chiller.new
+    refrigerator = Refrigerator.new(chiller, freezer, dispenser, reservoir)
+    refrigerator.plug_in
+    expect(refrigerator.instance_variable_get(:@power)).to eq(:on)
+    expect(refrigerator.chiller.instance_variable_get(:@power)).to eq(:on)
+    expect(refrigerator.freezer.instance_variable_get(:@power)).to eq(:on)
+end
+
+it 'can be un-pluged' do
+  vessel = Vessel.new('FakeVessel', 15)
+  reservoir = WaterReservoir.new
+  dispenser = WaterDispenser.new(vessel)
+  freezer = Freezer.new
+  chiller = Chiller.new
+  refrigerator = Refrigerator.new(chiller, freezer, dispenser, reservoir)
+  refrigerator.unplug
+    expect(refrigerator.instance_variable_get(:@power)).to eq(:off)
+    expect(refrigerator.chiller.instance_variable_get(:@power)).to eq(:off)
+    expect(refrigerator.freezer.instance_variable_get(:@power)).to eq(:off)
+end
+
 end

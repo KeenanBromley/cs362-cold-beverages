@@ -30,4 +30,16 @@ describe 'A chiller' do
     expect(chiller.temperature).to eq(45)
   end
 
+  it 'can turn on' do
+    chiller = Chiller.new
+    chiller.turn_on
+    expect(chiller.instance_variable_get(:@power)).to eq(:on)
+  end
+
+  it 'can turn off' do
+    chiller = Chiller.new
+    chiller.turn_off
+    expect(chiller.instance_variable_get(:@power)).to eq(:off)
+  end
+
 end
